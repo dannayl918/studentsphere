@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resources | StudentSphere</title>
+
+    <meta
+        name="description"
+        content="StudentSphere — useful study, AI, coding, scholarship and university resources for students."
+    >
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --bg: #08111f;
+            --bg-light: #0d1a2b;
+            --card: rgba(15, 29, 48, 0.78);
+            --text: #f3f7fb;
+            --muted: #9eafc3;
+            --line: rgba(255,255,255,.09);
+            --accent: #70d6ff;
+            --accent-soft: rgba(112,214,255,.12);
+            --purple: #9d8cff;
+            --max: 1180px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 85% 5%,
+                    rgba(75,104,170,.18),
+                    transparent 30%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.015) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.015) 1px,
+                    transparent 1px
+                );
+            background-size: 70px 70px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(92%, var(--max));
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8,17,31,.86);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .back {
+            color: var(--muted);
+            font-size: .82rem;
+            border: 1px solid var(--line);
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: .25s ease;
+        }
+
+        .back:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 90px 0 55px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: .95;
+            letter-spacing: -4px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                100deg,
+                #f3f7fb,
+                #70d6ff,
+                #9d8cff
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        /* SEARCH */
+
+        .search-area {
+            padding-bottom: 35px;
+        }
+
+        .search-box {
+            max-width: 720px;
+            margin: auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: rgba(13,26,43,.85);
+            color: var(--text);
+            outline: none;
+            font-size: .9rem;
+            transition: .25s ease;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(112,214,255,.5);
+            box-shadow: 0 0 30px rgba(112,214,255,.07);
+        }
+
+        .search-box input::placeholder {
+            color: #71849a;
+        }
+
+        /* FILTERS */
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        .filter-btn {
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--muted);
+            padding: 8px 14px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: .75rem;
+            transition: .25s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: #07111f;
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* RESOURCES */
+
+        .resources {
+            padding: 35px 0 90px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .resource-card {
+            position: relative;
+            padding: 28px;
+            min-height: 245px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--card);
+            transition: .3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(112,214,255,.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,.18);
+        }
+
+        .resource-number {
+            color: var(--accent);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            margin: 20px 0 15px;
+        }
+
+        .resource-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 9px;
+        }
+
+        .resource-card p {
+            color: var(--muted);
+            font-size: .82rem;
+            margin-bottom: 22px;
+        }
+
+        .resource-link {
+            color: var(--accent);
+            font-size: .76rem;
+            font-weight: 600;
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--muted);
+            padding: 60px 20px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 28px 0;
+            text-align: center;
+            color: #65778d;
+            font-size: .72rem;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+            .resource-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 70px 0 45px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-card {
+                min-height: auto;
+            }
+
+            .back {
+                font-size: .72rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+        <div class="container nav">
+
+            <a href="index.html" class="logo">
+                Student<span>Sphere.</span>
+            </a>
+
+            <a href="index.html" class="back">
+                ← Back to Home
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero">
+            <div class="container">
+
+                <p class="eyebrow">STUDENTSPHERE RESOURCES</p>
+
+                <h1>
+                    Learn.<br>
+                    <span>Build. Grow.</span>
+                </h1>
+
+                <p>
+                    A growing collection of useful resources for students —
+                    from education and scholarships to AI, coding and
+                    university opportunities.
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- SEARCH -->
+
+        <section class="search-area">
+            <div class="container">
+
+                <div class="search-box">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search resources..."
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="filters">
+
+                    <button class="filter-btn active" data-filter="all">
+                        All
+                    </button>
+
+                    <button class="filter-btn" data-filter="study">
+                        Study
+                    </button>
+
+                    <button class="filter-btn" data-filter="ai">
+                        AI
+                    </button>
+
+                    <button class="filter-btn" data-filter="coding">
+                        Coding
+                    </button>
+
+                    <button class="filter-btn" data-filter="scholarship">
+                        Scholarships
+                    </button>
+
+                    <button class="filter-btn" data-filter="university">
+                        Universities
+                    </button>
+
+                    <button class="filter-btn" data-filter="usa">
+                        USA
+                    </button>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- RESOURCE CARDS -->
+
+        <section class="resources">
+
+            <div class="container">
+
+                <div class="resource-grid" id="resourceGrid">
+
+
+                    <!-- STUDY -->
+
+                    <article
+                        class="resource-card"
+                        data-category="study"
+                        data-title="Study Resources"
+                    >
+
+                        <span class="resource-number">01</span>
+
+                        <div class="resource-icon">📚</div>
+
+                        <h2>Study Resources</h2>
+
+                        <p>
+                            Useful learning material, study techniques,
+                            educational platforms and academic resources.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- AI -->
+
+                    <article
+                        class="resource-card"
+                        data-category="ai"
+                        data-title="AI Tools"
+                    >
+
+                        <span class="resource-number">02</span>
+
+                        <div class="resource-icon">🤖</div>
+
+                        <h2>AI Tools</h2>
+
+                        <p>
+                            Discover useful Artificial Intelligence tools
+                            for learning, research, productivity and projects.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- CODING -->
+
+                    <article
+                        class="resource-card"
+                        data-category="coding"
+                        data-title="Coding Resources"
+                    >
+
+                        <span class="resource-number">03</span>
+
+                        <div class="resource-icon">💻</div>
+
+                        <h2>Coding Resources</h2>
+
+                        <p>
+                            Learn programming, web development, GitHub,
+                            software engineering and development skills.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- SCHOLARSHIP -->
+
+                    <article
+                        class="resource-card"
+                        data-category="scholarship"
+                        data-title="Scholarships"
+                    >
+
+                        <span class="resource-number">04</span>
+
+                        <div class="resource-icon">🎓</div>
+
+                        <h2>Scholarships</h2>
+
+                        <p>
+                            Find scholarship opportunities and learn about
+                            applications, eligibility and financial aid.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- UNIVERSITY -->
+
+                    <article
+                        class="resource-card"
+                        data-category="university"
+                        data-title="University Guide"
+                    >
+
+                        <span class="resource-number">05</span>
+
+                        <div class="resource-icon">🏛️</div>
+
+                        <h2>University Guide</h2>
+
+                        <p>
+                            Explore university admissions, programs,
+                            requirements and useful student information.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- USA -->
+
+                    <article
+                        class="resource-card"
+                        data-category="usa"
+                        data-title="Study in USA"
+                    >
+
+                        <span class="resource-number">06</span>
+
+                        <div class="resource-icon">🇺🇸</div>
+
+                        <h2>Study in USA</h2>
+
+                        <p>
+                            Resources for students interested in studying
+                            at American universities and preparing applications.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- ENGLISH -->
+
+                    <article
+                        class="resource-card"
+                        data-category="study"
+                        data-title="English Learning"
+                    >
+
+                        <span class="resource-number">07</span>
+
+                        <div class="resource-icon">🌎</div>
+
+                        <h2>English Learning</h2>
+
+                        <p>
+                            Improve English communication, vocabulary,
+                            writing and test preparation skills.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- PROJECTS -->
+
+                    <article
+                        class="resource-card"
+                        data-category="coding"
+                        data-title="Project Ideas"
+                    >
+
+                        <span class="resource-number">08</span>
+
+                        <div class="resource-icon">🚀</div>
+
+                        <h2>Project Ideas</h2>
+
+                        <p>
+                            Practical project ideas that students can build
+                            to develop skills and strengthen their portfolios.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+
+                    <!-- CAREER -->
+
+                    <article
+                        class="resource-card"
+                        data-category="university"
+                        data-title="Career Resources"
+                    >
+
+                        <span class="resource-number">09</span>
+
+                        <div class="resource-icon">💼</div>
+
+                        <h2>Career Resources</h2>
+
+                        <p>
+                            Explore internships, career preparation,
+                            portfolios and opportunities for students.
+                        </p>
+
+                        <a href="#" class="resource-link">
+                            Explore →
+                        </a>
+
+                    </article>
+
+                </div>
+
+
+                <div class="no-results" id="noResults">
+                    No resources found. Try another search.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        <div class="container">
+            <p>
+                © 2026 StudentSphere. Built for students.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- SEARCH + FILTER -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const cards =
+            document.querySelectorAll(".resource-card");
+
+        const filterButtons =
+            document.querySelectorAll(".filter-btn");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        let currentFilter = "all";
+
+
+        function filterResources() {
+
+            const search =
+                searchInput.value.toLowerCase().trim();
+
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+
+                const category =
+                    card.dataset.category;
+
+                const title =
+                    card.dataset.title.toLowerCase();
+
+                const text =
+                    card.textContent.toLowerCase();
+
+
+                const matchesFilter =
+                    currentFilter === "all" ||
+                    category === currentFilter;
+
+                const matchesSearch =
+                    !search ||
+                    title.includes(search) ||
+                    text.includes(search);
+
+
+                if (matchesFilter && matchesSearch) {
+
+                    card.style.display = "block";
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            noResults.style.display =
+                visibleCount === 0 ? "block" : "none";
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterResources
+        );
+
+
+        filterButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                filterButtons.forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+                button.classList.add("active");
+
+                currentFilter =
+                    button.dataset.filter;
+
+                filterResources();
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
