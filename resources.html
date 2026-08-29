@@ -8,7 +8,7 @@
 
     <meta
         name="description"
-        content="StudentSphere — useful study, AI, coding, scholarship and university resources for students."
+        content="StudentSphere Resources — scholarships, universities, AI, coding, study and career resources for students."
     >
 
     <style>
@@ -16,7 +16,7 @@
 
         :root {
             --bg: #08111f;
-            --bg-light: #0d1a2b;
+            --bg2: #0d1a2b;
             --card: rgba(15, 29, 48, 0.78);
             --text: #f3f7fb;
             --muted: #9eafc3;
@@ -24,6 +24,7 @@
             --accent: #70d6ff;
             --accent-soft: rgba(112,214,255,.12);
             --purple: #9d8cff;
+            --green: #7fe0b2;
             --max: 1180px;
         }
 
@@ -44,10 +45,16 @@
                     rgba(75,104,170,.18),
                     transparent 30%
                 ),
+                radial-gradient(
+                    circle at 10% 40%,
+                    rgba(45,145,190,.08),
+                    transparent 28%
+                ),
                 var(--bg);
+
             color: var(--text);
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             min-height: 100vh;
         }
 
@@ -55,8 +62,9 @@
             content: "";
             position: fixed;
             inset: 0;
-            pointer-events: none;
             z-index: -1;
+            pointer-events: none;
+
             background-image:
                 linear-gradient(
                     rgba(255,255,255,.015) 1px,
@@ -67,6 +75,7 @@
                     rgba(255,255,255,.015) 1px,
                     transparent 1px
                 );
+
             background-size: 70px 70px;
         }
 
@@ -75,24 +84,34 @@
             text-decoration: none;
         }
 
+        button,
+        input {
+            font: inherit;
+        }
+
         .container {
             width: min(92%, var(--max));
             margin: auto;
         }
 
-        /* NAVBAR */
+        /* =========================
+           NAVBAR
+        ========================= */
 
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(8,17,31,.86);
+
+            background: rgba(8,17,31,.84);
             backdrop-filter: blur(18px);
+
             border-bottom: 1px solid var(--line);
         }
 
-        .nav {
-            min-height: 72px;
+        .nav-container {
+            min-height: 74px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -108,217 +127,348 @@
             color: var(--accent);
         }
 
-        .back {
-            color: var(--muted);
-            font-size: .82rem;
+        .back-btn {
             border: 1px solid var(--line);
-            padding: 8px 14px;
             border-radius: 8px;
+
+            padding: 8px 15px;
+
+            color: var(--muted);
+            font-size: .78rem;
+
             transition: .25s ease;
         }
 
-        .back:hover {
+        .back-btn:hover {
             color: var(--accent);
             border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
-            padding: 90px 0 55px;
+            padding: 95px 0 55px;
             text-align: center;
         }
 
         .eyebrow {
             color: var(--accent);
-            font-size: .72rem;
+
+            font-size: .7rem;
             font-weight: 700;
             letter-spacing: 2.5px;
-            margin-bottom: 15px;
+
+            margin-bottom: 16px;
         }
 
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 7vw, 5.8rem);
+
+            font-size: clamp(3.2rem, 7vw, 6rem);
             line-height: .95;
+
             letter-spacing: -4px;
-            margin-bottom: 22px;
+
+            margin-bottom: 25px;
         }
 
         .hero h1 span {
-            background: linear-gradient(
-                100deg,
-                #f3f7fb,
-                #70d6ff,
-                #9d8cff
-            );
+            background:
+                linear-gradient(
+                    100deg,
+                    #f3f7fb,
+                    #70d6ff,
+                    #9d8cff
+                );
+
             -webkit-background-clip: text;
             background-clip: text;
+
             color: transparent;
         }
 
-        .hero p {
-            max-width: 650px;
+        .hero-description {
+            max-width: 700px;
             margin: auto;
+
             color: var(--muted);
             font-size: .95rem;
         }
 
-        /* SEARCH */
+        /* =========================
+           SEARCH
+        ========================= */
 
-        .search-area {
-            padding-bottom: 35px;
+        .search-section {
+            padding: 15px 0 30px;
         }
 
         .search-box {
             max-width: 720px;
             margin: auto;
-            position: relative;
         }
 
         .search-box input {
             width: 100%;
+
             padding: 16px 20px;
-            border-radius: 12px;
+
             border: 1px solid var(--line);
+            border-radius: 12px;
+
+            outline: none;
+
             background: rgba(13,26,43,.85);
             color: var(--text);
-            outline: none;
-            font-size: .9rem;
-            transition: .25s ease;
-        }
 
-        .search-box input:focus {
-            border-color: rgba(112,214,255,.5);
-            box-shadow: 0 0 30px rgba(112,214,255,.07);
+            font-size: .9rem;
+
+            transition: .25s ease;
         }
 
         .search-box input::placeholder {
             color: #71849a;
         }
 
-        /* FILTERS */
+        .search-box input:focus {
+            border-color: rgba(112,214,255,.5);
+
+            box-shadow:
+                0 0 30px rgba(112,214,255,.07);
+        }
+
+        /* =========================
+           FILTERS
+        ========================= */
 
         .filters {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+
             gap: 9px;
+
             margin-top: 20px;
         }
 
         .filter-btn {
             border: 1px solid var(--line);
+            border-radius: 50px;
+
+            padding: 8px 15px;
+
             background: transparent;
             color: var(--muted);
-            padding: 8px 14px;
-            border-radius: 50px;
+
             cursor: pointer;
-            font-size: .75rem;
+
+            font-size: .74rem;
+
             transition: .25s ease;
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            color: #07111f;
             background: var(--accent);
             border-color: var(--accent);
+
+            color: #07111f;
+
+            transform: translateY(-2px);
         }
 
-        /* RESOURCES */
+        /* =========================
+           RESOURCE GRID
+        ========================= */
 
-        .resources {
-            padding: 35px 0 90px;
+        .resources-section {
+            padding: 35px 0 100px;
         }
 
         .resource-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 16px;
         }
 
         .resource-card {
             position: relative;
+
+            min-height: 285px;
+
             padding: 28px;
-            min-height: 245px;
+
             border: 1px solid var(--line);
             border-radius: 16px;
+
             background: var(--card);
-            transition: .3s ease;
+
+            overflow: hidden;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .resource-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            right: -80px;
+            top: -80px;
+
+            border-radius: 50%;
+
+            background: var(--accent-soft);
+
+            filter: blur(4px);
         }
 
         .resource-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(112,214,255,.3);
-            box-shadow: 0 20px 50px rgba(0,0,0,.18);
+            transform: translateY(-7px);
+
+            border-color:
+                rgba(112,214,255,.32);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,.2);
         }
 
         .resource-number {
+            position: relative;
+
             color: var(--accent);
+
             font-size: .7rem;
             font-weight: 700;
-            letter-spacing: 1px;
+
+            letter-spacing: 1.5px;
         }
 
         .resource-icon {
-            font-size: 2rem;
-            margin: 20px 0 15px;
+            position: relative;
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 22px 0 18px;
+
+            border: 1px solid var(--line);
+            border-radius: 13px;
+
+            background: var(--accent-soft);
+
+            font-size: 1.5rem;
         }
 
         .resource-card h2 {
+            position: relative;
+
             font-family: 'Space Grotesk', sans-serif;
+
             font-size: 1.3rem;
+
             margin-bottom: 9px;
         }
 
         .resource-card p {
+            position: relative;
+
             color: var(--muted);
+
             font-size: .82rem;
-            margin-bottom: 22px;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
         }
 
         .resource-link {
+            position: relative;
+
             color: var(--accent);
+
             font-size: .76rem;
             font-weight: 600;
+
+            transition: .2s ease;
         }
 
         .resource-link:hover {
-            text-decoration: underline;
+            letter-spacing: .3px;
         }
+
+        /* =========================
+           EMPTY RESULT
+        ========================= */
 
         .no-results {
-            display: none;
             text-align: center;
+
+            padding: 70px 20px;
+
             color: var(--muted);
-            padding: 60px 20px;
         }
 
-        /* FOOTER */
+        .no-results h2 {
+            color: var(--text);
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         footer {
             border-top: 1px solid var(--line);
-            padding: 28px 0;
+
+            padding: 28px 0 35px;
+
             text-align: center;
+
             color: #65778d;
+
             font-size: .72rem;
         }
 
-        /* MOBILE */
+        /* =========================
+           MOBILE
+        ========================= */
 
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
+
             .resource-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
         }
 
         @media (max-width: 600px) {
+
             .hero {
                 padding: 70px 0 45px;
             }
 
             .hero h1 {
-                letter-spacing: -2px;
+                letter-spacing: -2.5px;
             }
 
             .resource-grid {
@@ -329,353 +479,514 @@
                 min-height: auto;
             }
 
-            .back {
-                font-size: .72rem;
+            .back-btn {
+                font-size: .7rem;
+                padding: 7px 11px;
             }
+
         }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================= -->
 
     <header class="navbar">
-        <div class="container nav">
+
+        <div class="container nav-container">
 
             <a href="index.html" class="logo">
                 Student<span>Sphere.</span>
             </a>
 
-            <a href="index.html" class="back">
-                ← Back to Home
+            <a href="index.html" class="back-btn">
+                ← Back Home
             </a>
 
         </div>
+
     </header>
 
 
-    <!-- HERO -->
+    <!-- =========================
+         MAIN
+    ========================= -->
 
     <main>
 
+        <!-- HERO -->
+
         <section class="hero">
+
             <div class="container">
 
-                <p class="eyebrow">STUDENTSPHERE RESOURCES</p>
+                <p class="eyebrow">
+                    STUDENTSPHERE RESOURCE HUB
+                </p>
 
                 <h1>
                     Learn.<br>
                     <span>Build. Grow.</span>
                 </h1>
 
-                <p>
-                    A growing collection of useful resources for students —
-                    from education and scholarships to AI, coding and
-                    university opportunities.
+                <p class="hero-description">
+                    A carefully organized collection of resources
+                    for students who want to learn, build skills,
+                    find opportunities and prepare for their future.
                 </p>
 
             </div>
+
         </section>
 
 
         <!-- SEARCH -->
 
-        <section class="search-area">
+        <section class="search-section">
+
             <div class="container">
 
                 <div class="search-box">
+
                     <input
                         type="search"
                         id="searchInput"
-                        placeholder="Search resources..."
+                        placeholder="Search scholarships, AI, coding, universities..."
                         autocomplete="off"
                     >
+
                 </div>
+
+
+                <!-- FILTER BUTTONS -->
 
                 <div class="filters">
 
-                    <button class="filter-btn active" data-filter="all">
+                    <button
+                        class="filter-btn active"
+                        data-category="all"
+                    >
                         All
                     </button>
 
-                    <button class="filter-btn" data-filter="study">
-                        Study
+                    <button
+                        class="filter-btn"
+                        data-category="study"
+                    >
+                        📚 Study
                     </button>
 
-                    <button class="filter-btn" data-filter="ai">
-                        AI
+                    <button
+                        class="filter-btn"
+                        data-category="scholarship"
+                    >
+                        🎓 Scholarships
                     </button>
 
-                    <button class="filter-btn" data-filter="coding">
-                        Coding
+                    <button
+                        class="filter-btn"
+                        data-category="university"
+                    >
+                        🏛️ Universities
                     </button>
 
-                    <button class="filter-btn" data-filter="scholarship">
-                        Scholarships
+                    <button
+                        class="filter-btn"
+                        data-category="ai"
+                    >
+                        🤖 AI
                     </button>
 
-                    <button class="filter-btn" data-filter="university">
-                        Universities
+                    <button
+                        class="filter-btn"
+                        data-category="coding"
+                    >
+                        💻 Coding
                     </button>
 
-                    <button class="filter-btn" data-filter="usa">
-                        USA
+                    <button
+                        class="filter-btn"
+                        data-category="usa"
+                    >
+                        🇺🇸 USA
                     </button>
 
                 </div>
 
             </div>
+
         </section>
 
 
-        <!-- RESOURCE CARDS -->
+        <!-- RESOURCES -->
 
-        <section class="resources">
+        <section class="resources-section">
 
             <div class="container">
 
-                <div class="resource-grid" id="resourceGrid">
+                <div
+                    class="resource-grid"
+                    id="resourceGrid"
+                >
 
 
-                    <!-- STUDY -->
+                    <!-- 01 -->
 
                     <article
                         class="resource-card"
                         data-category="study"
-                        data-title="Study Resources"
+                        data-search="study learning education courses academic"
                     >
 
-                        <span class="resource-number">01</span>
+                        <span class="resource-number">
+                            01
+                        </span>
 
-                        <div class="resource-icon">📚</div>
+                        <div class="resource-icon">
+                            📚
+                        </div>
 
-                        <h2>Study Resources</h2>
+                        <h2>
+                            Study Resources
+                        </h2>
 
                         <p>
-                            Useful learning material, study techniques,
-                            educational platforms and academic resources.
+                            Find useful learning platforms,
+                            educational material and resources
+                            to improve your academic skills.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://www.khanacademy.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Explore Resource →
                         </a>
 
                     </article>
 
 
-                    <!-- AI -->
-
-                    <article
-                        class="resource-card"
-                        data-category="ai"
-                        data-title="AI Tools"
-                    >
-
-                        <span class="resource-number">02</span>
-
-                        <div class="resource-icon">🤖</div>
-
-                        <h2>AI Tools</h2>
-
-                        <p>
-                            Discover useful Artificial Intelligence tools
-                            for learning, research, productivity and projects.
-                        </p>
-
-                        <a href="#" class="resource-link">
-                            Explore →
-                        </a>
-
-                    </article>
-
-
-                    <!-- CODING -->
-
-                    <article
-                        class="resource-card"
-                        data-category="coding"
-                        data-title="Coding Resources"
-                    >
-
-                        <span class="resource-number">03</span>
-
-                        <div class="resource-icon">💻</div>
-
-                        <h2>Coding Resources</h2>
-
-                        <p>
-                            Learn programming, web development, GitHub,
-                            software engineering and development skills.
-                        </p>
-
-                        <a href="#" class="resource-link">
-                            Explore →
-                        </a>
-
-                    </article>
-
-
-                    <!-- SCHOLARSHIP -->
+                    <!-- 02 -->
 
                     <article
                         class="resource-card"
                         data-category="scholarship"
-                        data-title="Scholarships"
+                        data-search="scholarship financial aid HEC Pakistan student funding"
                     >
 
-                        <span class="resource-number">04</span>
+                        <span class="resource-number">
+                            02
+                        </span>
 
-                        <div class="resource-icon">🎓</div>
+                        <div class="resource-icon">
+                            🎓
+                        </div>
 
-                        <h2>Scholarships</h2>
+                        <h2>
+                            HEC Scholarships
+                        </h2>
 
                         <p>
-                            Find scholarship opportunities and learn about
-                            applications, eligibility and financial aid.
+                            Explore official higher-education
+                            scholarship information and opportunities
+                            available through HEC Pakistan.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://hec.gov.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Explore HEC →
                         </a>
 
                     </article>
 
 
-                    <!-- UNIVERSITY -->
+                    <!-- 03 -->
 
                     <article
                         class="resource-card"
                         data-category="university"
-                        data-title="University Guide"
+                        data-search="NUST university Pakistan admission computer science"
                     >
 
-                        <span class="resource-number">05</span>
+                        <span class="resource-number">
+                            03
+                        </span>
 
-                        <div class="resource-icon">🏛️</div>
+                        <div class="resource-icon">
+                            🏛️
+                        </div>
 
-                        <h2>University Guide</h2>
+                        <h2>
+                            NUST
+                        </h2>
 
                         <p>
-                            Explore university admissions, programs,
-                            requirements and useful student information.
+                            Explore university programs, admissions
+                            and academic opportunities at NUST.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://nust.edu.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Visit NUST →
                         </a>
 
                     </article>
 
 
-                    <!-- USA -->
+                    <!-- 04 -->
 
                     <article
                         class="resource-card"
-                        data-category="usa"
-                        data-title="Study in USA"
+                        data-category="university"
+                        data-search="FAST NUCES university Pakistan CS software engineering"
                     >
 
-                        <span class="resource-number">06</span>
+                        <span class="resource-number">
+                            04
+                        </span>
 
-                        <div class="resource-icon">🇺🇸</div>
+                        <div class="resource-icon">
+                            💡
+                        </div>
 
-                        <h2>Study in USA</h2>
+                        <h2>
+                            FAST-NUCES
+                        </h2>
 
                         <p>
-                            Resources for students interested in studying
-                            at American universities and preparing applications.
+                            Explore Computer Science, Software Engineering,
+                            admissions and academic information.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://nu.edu.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Visit FAST →
                         </a>
 
                     </article>
 
 
-                    <!-- ENGLISH -->
+                    <!-- 05 -->
 
                     <article
                         class="resource-card"
-                        data-category="study"
-                        data-title="English Learning"
+                        data-category="ai"
+                        data-search="AI artificial intelligence machine learning research tools"
                     >
 
-                        <span class="resource-number">07</span>
+                        <span class="resource-number">
+                            05
+                        </span>
 
-                        <div class="resource-icon">🌎</div>
+                        <div class="resource-icon">
+                            🤖
+                        </div>
 
-                        <h2>English Learning</h2>
+                        <h2>
+                            Google AI
+                        </h2>
 
                         <p>
-                            Improve English communication, vocabulary,
-                            writing and test preparation skills.
+                            Explore Artificial Intelligence research,
+                            technologies, learning material and tools.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://ai.google/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Explore AI →
                         </a>
 
                     </article>
 
 
-                    <!-- PROJECTS -->
+                    <!-- 06 -->
 
                     <article
                         class="resource-card"
                         data-category="coding"
-                        data-title="Project Ideas"
+                        data-search="GitHub coding programming software development projects"
                     >
 
-                        <span class="resource-number">08</span>
+                        <span class="resource-number">
+                            06
+                        </span>
 
-                        <div class="resource-icon">🚀</div>
+                        <div class="resource-icon">
+                            💻
+                        </div>
 
-                        <h2>Project Ideas</h2>
+                        <h2>
+                            GitHub
+                        </h2>
 
                         <p>
-                            Practical project ideas that students can build
-                            to develop skills and strengthen their portfolios.
+                            Build projects, store code, collaborate
+                            with developers and create your portfolio.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://github.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Open GitHub →
                         </a>
 
                     </article>
 
 
-                    <!-- CAREER -->
+                    <!-- 07 -->
 
                     <article
                         class="resource-card"
-                        data-category="university"
-                        data-title="Career Resources"
+                        data-category="coding"
+                        data-search="freeCodeCamp programming web development JavaScript Python coding"
                     >
 
-                        <span class="resource-number">09</span>
+                        <span class="resource-number">
+                            07
+                        </span>
 
-                        <div class="resource-icon">💼</div>
+                        <div class="resource-icon">
+                            🧑‍💻
+                        </div>
 
-                        <h2>Career Resources</h2>
+                        <h2>
+                            freeCodeCamp
+                        </h2>
 
                         <p>
-                            Explore internships, career preparation,
-                            portfolios and opportunities for students.
+                            Learn programming, web development,
+                            JavaScript, Python and other technical skills.
                         </p>
 
-                        <a href="#" class="resource-link">
-                            Explore →
+                        <a
+                            href="https://www.freecodecamp.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Start Learning →
                         </a>
 
                     </article>
+
+
+                    <!-- 08 -->
+
+                    <article
+                        class="resource-card"
+                        data-category="usa"
+                        data-search="USA university international student admissions study abroad America"
+                    >
+
+                        <span class="resource-number">
+                            08
+                        </span>
+
+                        <div class="resource-icon">
+                            🇺🇸
+                        </div>
+
+                        <h2>
+                            Study in the USA
+                        </h2>
+
+                        <p>
+                            Explore official information for international
+                            students planning to study at US institutions.
+                        </p>
+
+                        <a
+                            href="https://educationusa.state.gov/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Explore USA →
+                        </a>
+
+                    </article>
+
+
+                    <!-- 09 -->
+
+                    <article
+                        class="resource-card"
+                        data-category="study"
+                        data-search="English learning language student test preparation"
+                    >
+
+                        <span class="resource-number">
+                            09
+                        </span>
+
+                        <div class="resource-icon">
+                            🌎
+                        </div>
+
+                        <h2>
+                            English Learning
+                        </h2>
+
+                        <p>
+                            Improve English communication, vocabulary,
+                            grammar and academic language skills.
+                        </p>
+
+                        <a
+                            href="https://learnenglish.britishcouncil.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="resource-link"
+                        >
+                            Learn English →
+                        </a>
+
+                    </article>
+
 
                 </div>
 
 
-                <div class="no-results" id="noResults">
-                    No resources found. Try another search.
+                <!-- NO RESULTS -->
+
+                <div
+                    class="no-results"
+                    id="noResults"
+                    style="display: none;"
+                >
+
+                    <h2>
+                        No resources found
+                    </h2>
+
+                    <p>
+                        Try another keyword or select a different category.
+                    </p>
+
                 </div>
 
             </div>
@@ -688,22 +999,29 @@
     <!-- FOOTER -->
 
     <footer>
+
         <div class="container">
+
             <p>
-                © 2026 StudentSphere. Built for students.
+                © 2026 StudentSphere.
+                Built for students.
             </p>
+
         </div>
+
     </footer>
 
 
-    <!-- SEARCH + FILTER -->
+    <!-- =========================
+         SEARCH & FILTER JAVASCRIPT
+    ========================= -->
 
     <script>
 
         const searchInput =
             document.getElementById("searchInput");
 
-        const cards =
+        const resourceCards =
             document.querySelectorAll(".resource-card");
 
         const filterButtons =
@@ -712,43 +1030,47 @@
         const noResults =
             document.getElementById("noResults");
 
-        let currentFilter = "all";
+        let activeCategory = "all";
 
 
-        function filterResources() {
+        function updateResources() {
 
-            const search =
-                searchInput.value.toLowerCase().trim();
+            const searchTerm =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
 
-            let visibleCount = 0;
+            let visibleCards = 0;
 
 
-            cards.forEach(card => {
+            resourceCards.forEach(card => {
 
                 const category =
                     card.dataset.category;
 
-                const title =
-                    card.dataset.title.toLowerCase();
-
-                const text =
-                    card.textContent.toLowerCase();
-
-
-                const matchesFilter =
-                    currentFilter === "all" ||
-                    category === currentFilter;
-
-                const matchesSearch =
-                    !search ||
-                    title.includes(search) ||
-                    text.includes(search);
+                const searchableText =
+                    (
+                        card.dataset.search +
+                        " " +
+                        card.textContent
+                    ).toLowerCase();
 
 
-                if (matchesFilter && matchesSearch) {
+                const categoryMatch =
+                    activeCategory === "all" ||
+                    category === activeCategory;
+
+
+                const searchMatch =
+                    searchTerm === "" ||
+                    searchableText.includes(searchTerm);
+
+
+                if (categoryMatch && searchMatch) {
 
                     card.style.display = "block";
-                    visibleCount++;
+
+                    visibleCards++;
 
                 } else {
 
@@ -759,33 +1081,47 @@
             });
 
 
-            noResults.style.display =
-                visibleCount === 0 ? "block" : "none";
+            if (visibleCards === 0) {
+
+                noResults.style.display = "block";
+
+            } else {
+
+                noResults.style.display = "none";
+
+            }
+
         }
 
 
         searchInput.addEventListener(
             "input",
-            filterResources
+            updateResources
         );
 
 
         filterButtons.forEach(button => {
 
-            button.addEventListener("click", () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                filterButtons.forEach(btn =>
-                    btn.classList.remove("active")
-                );
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove("active");
+                    });
 
-                button.classList.add("active");
 
-                currentFilter =
-                    button.dataset.filter;
+                    button.classList.add("active");
 
-                filterResources();
 
-            });
+                    activeCategory =
+                        button.dataset.category;
+
+
+                    updateResources();
+
+                }
+            );
 
         });
 
