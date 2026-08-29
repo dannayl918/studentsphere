@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scholarships | StudentSphere</title>
+
+    <meta
+        name="description"
+        content="StudentSphere Scholarship Finder — discover scholarship opportunities for Pakistani and international students."
+    >
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --bg: #08111f;
+            --bg2: #0d1a2b;
+            --card: rgba(15, 29, 48, .78);
+            --text: #f3f7fb;
+            --muted: #9eafc3;
+            --line: rgba(255,255,255,.09);
+            --accent: #70d6ff;
+            --soft: rgba(112,214,255,.12);
+            --purple: #9d8cff;
+            --green: #7fe0b2;
+            --max: 1180px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 5%,
+                    rgba(75,104,170,.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 10% 40%,
+                    rgba(45,145,190,.08),
+                    transparent 28%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            z-index: -1;
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.015) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.015) 1px,
+                    transparent 1px
+                );
+
+            background-size: 70px 70px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .container {
+            width: min(92%, var(--max));
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(8,17,31,.86);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-container {
+            min-height: 74px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            padding: 8px 15px;
+
+            border: 1px solid var(--line);
+            border-radius: 8px;
+
+            color: var(--muted);
+            font-size: .78rem;
+
+            transition: .25s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 90px 0 50px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+
+            font-size: clamp(3rem, 7vw, 5.8rem);
+
+            line-height: .95;
+            letter-spacing: -4px;
+
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background:
+                linear-gradient(
+                    100deg,
+                    #f3f7fb,
+                    #70d6ff,
+                    #9d8cff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero p:last-child {
+            max-width: 720px;
+
+            margin: auto;
+
+            color: var(--muted);
+
+            font-size: .94rem;
+        }
+
+        /* SEARCH */
+
+        .tools {
+            padding: 15px 0 35px;
+        }
+
+        .search {
+            max-width: 720px;
+            margin: auto;
+        }
+
+        .search input {
+            width: 100%;
+
+            padding: 16px 20px;
+
+            border: 1px solid var(--line);
+            border-radius: 12px;
+
+            outline: none;
+
+            background: rgba(13,26,43,.85);
+            color: var(--text);
+
+            font-size: .9rem;
+
+            transition: .25s ease;
+        }
+
+        .search input::placeholder {
+            color: #71849a;
+        }
+
+        .search input:focus {
+            border-color: rgba(112,214,255,.5);
+
+            box-shadow:
+                0 0 30px rgba(112,214,255,.07);
+        }
+
+        /* FILTERS */
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 20px;
+        }
+
+        .filter {
+            padding: 8px 15px;
+
+            border: 1px solid var(--line);
+            border-radius: 50px;
+
+            background: transparent;
+            color: var(--muted);
+
+            cursor: pointer;
+
+            font-size: .74rem;
+
+            transition: .25s ease;
+        }
+
+        .filter:hover,
+        .filter.active {
+            background: var(--accent);
+            border-color: var(--accent);
+
+            color: #07111f;
+
+            transform: translateY(-2px);
+        }
+
+        /* SCHOLARSHIP GRID */
+
+        .scholarships {
+            padding: 30px 0 100px;
+        }
+
+        .scholarship-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .scholarship-card {
+            position: relative;
+
+            padding: 27px;
+
+            min-height: 330px;
+
+            border: 1px solid var(--line);
+            border-radius: 17px;
+
+            background: var(--card);
+
+            overflow: hidden;
+
+            transition: .3s ease;
+        }
+
+        .scholarship-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 170px;
+            height: 170px;
+
+            right: -90px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background: var(--soft);
+
+            filter: blur(4px);
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-7px);
+
+            border-color:
+                rgba(112,214,255,.32);
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,.22);
+        }
+
+        .top {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--line);
+            border-radius: 13px;
+
+            background: var(--soft);
+
+            font-size: 1.35rem;
+        }
+
+        .tag {
+            padding: 5px 9px;
+
+            border-radius: 50px;
+
+            background: rgba(127,224,178,.09);
+            color: var(--green);
+
+            font-size: .62rem;
+            font-weight: 700;
+        }
+
+        .scholarship-card h2 {
+            position: relative;
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            font-size: 1.28rem;
+
+            margin-bottom: 9px;
+        }
+
+        .description {
+            position: relative;
+
+            color: var(--muted);
+
+            font-size: .82rem;
+
+            line-height: 1.7;
+
+            margin-bottom: 22px;
+        }
+
+        .details {
+            position: relative;
+
+            display: grid;
+
+            gap: 8px;
+
+            margin-bottom: 22px;
+
+            padding-top: 16px;
+
+            border-top: 1px solid var(--line);
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            font-size: .72rem;
+        }
+
+        .detail span:first-child {
+            color: #71849a;
+        }
+
+        .detail span:last-child {
+            color: var(--text);
+            font-weight: 600;
+
+            text-align: right;
+        }
+
+        .apply {
+            position: relative;
+
+            display: inline-block;
+
+            color: var(--accent);
+
+            font-size: .75rem;
+            font-weight: 700;
+
+            transition: .2s ease;
+        }
+
+        .apply:hover {
+            letter-spacing: .3px;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+            display: none;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            color: var(--muted);
+        }
+
+        .no-results h2 {
+            color: var(--text);
+
+            font-family: 'Space Grotesk', sans-serif;
+
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 28px 0 35px;
+
+            border-top: 1px solid var(--line);
+
+            color: #65778d;
+
+            text-align: center;
+
+            font-size: .72rem;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .scholarship-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+                padding: 70px 0 40px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2.5px;
+            }
+
+            .scholarship-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scholarship-card {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                Student<span>Sphere.</span>
+            </a>
+
+            <a href="index.html" class="back-btn">
+                ← Back Home
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="container">
+
+                <p class="eyebrow">
+                    STUDENTSPHERE SCHOLARSHIP FINDER
+                </p>
+
+                <h1>
+                    Find your<br>
+                    <span>opportunity.</span>
+                </h1>
+
+                <p>
+                    Explore scholarship portals and funding opportunities
+                    that can help students continue their education.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH + FILTER -->
+
+        <section class="tools">
+
+            <div class="container">
+
+                <div class="search">
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search scholarships, countries, undergraduate..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="filters">
+
+                    <button
+                        class="filter active"
+                        data-category="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-category="pakistan"
+                    >
+                        🇵🇰 Pakistan
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-category="usa"
+                    >
+                        🇺🇸 USA
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-category="international"
+                    >
+                        🌍 International
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-category="undergraduate"
+                    >
+                        🎓 Undergraduate
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCHOLARSHIPS -->
+
+        <section class="scholarships">
+
+            <div class="container">
+
+                <div
+                    class="scholarship-grid"
+                    id="scholarshipGrid"
+                >
+
+
+                    <!-- HEC -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="pakistan"
+                        data-search="HEC Pakistan scholarship higher education undergraduate students"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                🎓
+                            </div>
+
+                            <span class="tag">
+                                PAKISTAN
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            HEC Scholarships
+                        </h2>
+
+                        <p class="description">
+                            Official scholarship information from Pakistan's
+                            Higher Education Commission, including different
+                            higher-education funding programs.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Country</span>
+                                <span>Pakistan</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Level</span>
+                                <span>Various</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://hec.gov.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Visit Official Portal →
+                        </a>
+
+                    </article>
+
+
+                    <!-- US FULBRIGHT -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="usa"
+                        data-search="Fulbright USA scholarship international students graduate Pakistan"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                🇺🇸
+                            </div>
+
+                            <span class="tag">
+                                USA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Fulbright Program
+                        </h2>
+
+                        <p class="description">
+                            Explore official information about the Fulbright
+                            scholarship programs and opportunities for
+                            international students.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Destination</span>
+                                <span>United States</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Level</span>
+                                <span>Program Dependent</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://foreign.fulbrightonline.org/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Visit Official Portal →
+                        </a>
+
+                    </article>
+
+
+                    <!-- DAAD -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="international"
+                        data-search="DAAD Germany scholarship international students study Germany"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                🇩🇪
+                            </div>
+
+                            <span class="tag">
+                                GERMANY
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            DAAD Scholarships
+                        </h2>
+
+                        <p class="description">
+                            Find official scholarship and study information
+                            from the German Academic Exchange Service.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Country</span>
+                                <span>Germany</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Level</span>
+                                <span>Various</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.daad.de/en/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Visit Official Portal →
+                        </a>
+
+                    </article>
+
+
+                    <!-- ERASMUS -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="international"
+                        data-search="Erasmus Europe scholarship international students masters Europe"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                🇪🇺
+                            </div>
+
+                            <span class="tag">
+                                EUROPE
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Erasmus+
+                        </h2>
+
+                        <p class="description">
+                            Explore Erasmus+ opportunities and official
+                            information about education, training and
+                            international mobility.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Region</span>
+                                <span>Europe</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Level</span>
+                                <span>Program Dependent</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://erasmus-plus.ec.europa.eu/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Visit Official Portal →
+                        </a>
+
+                    </article>
+
+
+                    <!-- COMMONWEALTH -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="international"
+                        data-search="Commonwealth scholarship UK international students education"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                🇬🇧
+                            </div>
+
+                            <span class="tag">
+                                UK
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Commonwealth Scholarships
+                        </h2>
+
+                        <p class="description">
+                            Explore Commonwealth scholarship opportunities
+                            and official information for eligible students
+                            from Commonwealth countries.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Destination</span>
+                                <span>United Kingdom</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Eligibility</span>
+                                <span>Program Dependent</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://cscuk.fcdo.gov.uk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Visit Official Portal →
+                        </a>
+
+                    </article>
+
+
+                    <!-- UNDERGRADUATE -->
+
+                    <article
+                        class="scholarship-card"
+                        data-category="undergraduate"
+                        data-search="undergraduate bachelor university financial aid scholarship students"
+                    >
+
+                        <div class="top">
+
+                            <div class="icon">
+                                📚
+                            </div>
+
+                            <span class="tag">
+                                UNDERGRADUATE
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            University Scholarships
+                        </h2>
+
+                        <p class="description">
+                            Many universities offer their own merit,
+                            need-based and international student funding.
+                            Always check the university's official website.
+                        </p>
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <span>Level</span>
+                                <span>Bachelor's</span>
+                            </div>
+
+                            <div class="detail">
+                                <span>Funding</span>
+                                <span>Varies</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://educationusa.state.gov/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="apply"
+                        >
+                            Explore Opportunities →
+                        </a>
+
+                    </article>
+
+
+                </div>
+
+
+                <div
+                    class="no-results"
+                    id="noResults"
+                >
+
+                    <h2>
+                        No scholarships found
+                    </h2>
+
+                    <p>
+                        Try another search term or category.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                © 2026 StudentSphere.
+                Built for ambitious students.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const cards =
+            document.querySelectorAll(".scholarship-card");
+
+        const filters =
+            document.querySelectorAll(".filter");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        let activeCategory = "all";
+
+
+        function filterScholarships() {
+
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            let visible = 0;
+
+
+            cards.forEach(card => {
+
+                const category =
+                    card.dataset.category;
+
+                const searchableText =
+                    (
+                        card.dataset.search +
+                        " " +
+                        card.textContent
+                    ).toLowerCase();
+
+
+                const matchesCategory =
+                    activeCategory === "all" ||
+                    category === activeCategory;
+
+
+                const matchesSearch =
+                    search === "" ||
+                    searchableText.includes(search);
+
+
+                if (
+                    matchesCategory &&
+                    matchesSearch
+                ) {
+
+                    card.style.display = "block";
+
+                    visible++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            noResults.style.display =
+                visible === 0
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterScholarships
+        );
+
+
+        filters.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    filters.forEach(btn => {
+                        btn.classList.remove("active");
+                    });
+
+                    button.classList.add("active");
+
+                    activeCategory =
+                        button.dataset.category;
+
+                    filterScholarships();
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
