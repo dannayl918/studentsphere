@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>University Finder | StudentSphere</title>
+
+    <meta
+        name="description"
+        content="Explore world-class universities and find the right destination for your academic journey."
+    >
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --bg: #08111f;
+            --bg-light: #0d1a2b;
+            --card: rgba(15, 29, 48, 0.78);
+            --text: #f3f7fb;
+            --muted: #9eafc3;
+            --line: rgba(255, 255, 255, 0.09);
+            --accent: #70d6ff;
+            --accent-soft: rgba(112, 214, 255, 0.12);
+            --purple: #9d8cff;
+            --green: #7fe0b2;
+            --max: 1180px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 85% 5%, rgba(75, 104, 170, .18), transparent 30%),
+                radial-gradient(circle at 10% 40%, rgba(45, 145, 190, .08), transparent 28%),
+                var(--bg);
+
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+
+            background-image:
+                linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+
+            background-size: 70px 70px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .container {
+            width: min(92%, var(--max));
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(8, 17, 31, .86);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-container {
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: .78rem;
+            transition: .25s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 90px 0 45px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: .95;
+            letter-spacing: -4px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                100deg,
+                #f3f7fb,
+                #70d6ff,
+                #9d8cff
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 720px;
+            margin: auto;
+            color: var(--muted);
+            font-size: .94rem;
+        }
+
+        /* SEARCH */
+
+        .tools {
+            padding: 20px 0 35px;
+        }
+
+        .search-box {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 17px 20px;
+
+            background: rgba(13, 26, 43, .85);
+            color: var(--text);
+
+            border: 1px solid var(--line);
+            border-radius: 13px;
+
+            outline: none;
+            font-size: .9rem;
+
+            transition: .25s ease;
+        }
+
+        .search-box input::placeholder {
+            color: #71849a;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(112, 214, 255, .5);
+            box-shadow: 0 0 30px rgba(112, 214, 255, .07);
+        }
+
+        /* FILTERS */
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .filter {
+            padding: 8px 15px;
+
+            background: transparent;
+            color: var(--muted);
+
+            border: 1px solid var(--line);
+            border-radius: 50px;
+
+            cursor: pointer;
+            font-size: .74rem;
+
+            transition: .25s ease;
+        }
+
+        .filter:hover,
+        .filter.active {
+            background: var(--accent);
+            color: #07111f;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* UNIVERSITY GRID */
+
+        .universities {
+            padding: 30px 0 100px;
+        }
+
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .university-card {
+            position: relative;
+            min-height: 350px;
+            padding: 27px;
+
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            transition: .3s ease;
+        }
+
+        .university-card::before {
+            content: "";
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -100px;
+            right: -100px;
+
+            border-radius: 50%;
+            background: var(--accent-soft);
+
+            filter: blur(5px);
+        }
+
+        .university-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(112, 214, 255, .32);
+
+            box-shadow: 0 25px 60px rgba(0, 0, 0, .22);
+        }
+
+        .card-top {
+            position: relative;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 24px;
+        }
+
+        .flag {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 1.5rem;
+
+            background: var(--accent-soft);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+        }
+
+        .country-tag {
+            padding: 5px 10px;
+
+            background: rgba(127, 224, 178, .09);
+            color: var(--green);
+
+            border-radius: 50px;
+
+            font-size: .62rem;
+            font-weight: 700;
+        }
+
+        .university-card h2 {
+            position: relative;
+
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .location {
+            position: relative;
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .description {
+            position: relative;
+
+            color: var(--muted);
+            font-size: .82rem;
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+        }
+
+        .info {
+            position: relative;
+
+            display: grid;
+            gap: 8px;
+
+            padding-top: 16px;
+            margin-bottom: 22px;
+
+            border-top: 1px solid var(--line);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+
+            font-size: .72rem;
+        }
+
+        .info-row span:first-child {
+            color: #71849a;
+        }
+
+        .info-row span:last-child {
+            color: var(--text);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .visit-btn {
+            position: relative;
+
+            color: var(--accent);
+            font-size: .76rem;
+            font-weight: 700;
+
+            transition: .2s ease;
+        }
+
+        .visit-btn:hover {
+            letter-spacing: .3px;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 70px 20px;
+            color: var(--muted);
+        }
+
+        .no-results h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 28px 0 35px;
+            border-top: 1px solid var(--line);
+
+            color: #65778d;
+            text-align: center;
+            font-size: .72rem;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+
+            .university-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+                padding: 70px 0 40px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2.5px;
+            }
+
+            .university-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .university-card {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <header class="navbar">
+
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                Student<span>Sphere.</span>
+            </a>
+
+            <a href="index.html" class="back-btn">
+                ← Back Home
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="container">
+
+                <p class="eyebrow">
+                    STUDENTSPHERE UNIVERSITY FINDER
+                </p>
+
+                <h1>
+                    Explore your<br>
+                    <span>future university.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Discover world-class universities and explore
+                    academic destinations for Computer Science,
+                    Artificial Intelligence and technology.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH AND FILTERS -->
+
+        <section class="tools">
+
+            <div class="container">
+
+                <div class="search-box">
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search universities, countries or programs..."
+                    >
+
+                </div>
+
+
+                <div class="filters">
+
+                    <button class="filter active" data-country="all">
+                        All
+                    </button>
+
+                    <button class="filter" data-country="usa">
+                        🇺🇸 USA
+                    </button>
+
+                    <button class="filter" data-country="uk">
+                        🇬🇧 UK
+                    </button>
+
+                    <button class="filter" data-country="canada">
+                        🇨🇦 Canada
+                    </button>
+
+                    <button class="filter" data-country="pakistan">
+                        🇵🇰 Pakistan
+                    </button>
+
+                    <button class="filter" data-country="germany">
+                        🇩🇪 Germany
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- UNIVERSITY CARDS -->
+
+        <section class="universities">
+
+            <div class="container">
+
+                <div class="university-grid" id="universityGrid">
+
+
+                    <!-- MIT -->
+
+                    <article
+                        class="university-card"
+                        data-country="usa"
+                        data-search="MIT Massachusetts Institute Technology USA computer science artificial intelligence engineering"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇺🇸</div>
+
+                            <span class="country-tag">
+                                USA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            MIT
+                        </h2>
+
+                        <p class="location">
+                            Cambridge, Massachusetts
+                        </p>
+
+                        <p class="description">
+                            Massachusetts Institute of Technology is globally
+                            known for science, engineering, technology,
+                            innovation and Artificial Intelligence research.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>STEM & AI</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.mit.edu/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- STANFORD -->
+
+                    <article
+                        class="university-card"
+                        data-country="usa"
+                        data-search="Stanford University USA California computer science artificial intelligence technology"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇺🇸</div>
+
+                            <span class="country-tag">
+                                USA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Stanford University
+                        </h2>
+
+                        <p class="location">
+                            Stanford, California
+                        </p>
+
+                        <p class="description">
+                            A leading research university with strong programs
+                            in Computer Science, Artificial Intelligence,
+                            entrepreneurship and innovation.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>CS & Innovation</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.stanford.edu/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- HARVARD -->
+
+                    <article
+                        class="university-card"
+                        data-country="usa"
+                        data-search="Harvard University USA computer science technology undergraduate"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇺🇸</div>
+
+                            <span class="country-tag">
+                                USA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Harvard University
+                        </h2>
+
+                        <p class="location">
+                            Cambridge, Massachusetts
+                        </p>
+
+                        <p class="description">
+                            A world-renowned university offering a wide range
+                            of academic programs and opportunities for
+                            ambitious international students.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Multi-disciplinary</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.harvard.edu/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- OXFORD -->
+
+                    <article
+                        class="university-card"
+                        data-country="uk"
+                        data-search="University Oxford UK England computer science artificial intelligence technology"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇬🇧</div>
+
+                            <span class="country-tag">
+                                UK
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            University of Oxford
+                        </h2>
+
+                        <p class="location">
+                            Oxford, England
+                        </p>
+
+                        <p class="description">
+                            One of the world's most respected universities
+                            with strong academic traditions and advanced
+                            research across many disciplines.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Research & Technology</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.ox.ac.uk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- CAMBRIDGE -->
+
+                    <article
+                        class="university-card"
+                        data-country="uk"
+                        data-search="University Cambridge UK England computer science engineering technology"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇬🇧</div>
+
+                            <span class="country-tag">
+                                UK
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            University of Cambridge
+                        </h2>
+
+                        <p class="location">
+                            Cambridge, England
+                        </p>
+
+                        <p class="description">
+                            A globally respected research university known
+                            for excellence in science, engineering,
+                            mathematics and Computer Science.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>STEM & Research</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.cam.ac.uk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- TORONTO -->
+
+                    <article
+                        class="university-card"
+                        data-country="canada"
+                        data-search="University Toronto Canada computer science artificial intelligence engineering"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇨🇦</div>
+
+                            <span class="country-tag">
+                                CANADA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            University of Toronto
+                        </h2>
+
+                        <p class="location">
+                            Toronto, Canada
+                        </p>
+
+                        <p class="description">
+                            A major Canadian research university with strong
+                            programs in Computer Science, AI and technology.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>AI & Computer Science</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.utoronto.ca/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- WATERLOO -->
+
+                    <article
+                        class="university-card"
+                        data-country="canada"
+                        data-search="University Waterloo Canada computer science software engineering technology"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇨🇦</div>
+
+                            <span class="country-tag">
+                                CANADA
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            University of Waterloo
+                        </h2>
+
+                        <p class="location">
+                            Ontario, Canada
+                        </p>
+
+                        <p class="description">
+                            Known for technology, Computer Science,
+                            engineering and its strong connection with
+                            innovation and industry.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Technology & Software</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://uwaterloo.ca/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- LUMS -->
+
+                    <article
+                        class="university-card"
+                        data-country="pakistan"
+                        data-search="LUMS Pakistan Lahore computer science technology engineering"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇵🇰</div>
+
+                            <span class="country-tag">
+                                PAKISTAN
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            LUMS
+                        </h2>
+
+                        <p class="location">
+                            Lahore, Pakistan
+                        </p>
+
+                        <p class="description">
+                            Lahore University of Management Sciences is one
+                            of Pakistan's leading institutions with strong
+                            programs in technology and sciences.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Technology & Research</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://lums.edu.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- NUST -->
+
+                    <article
+                        class="university-card"
+                        data-country="pakistan"
+                        data-search="NUST Pakistan Islamabad computer science engineering artificial intelligence"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇵🇰</div>
+
+                            <span class="country-tag">
+                                PAKISTAN
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            NUST
+                        </h2>
+
+                        <p class="location">
+                            Islamabad, Pakistan
+                        </p>
+
+                        <p class="description">
+                            National University of Sciences and Technology
+                            is known for engineering, Computer Science and
+                            technology-focused education.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Engineering & CS</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://nust.edu.pk/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+
+                    <!-- TUM -->
+
+                    <article
+                        class="university-card"
+                        data-country="germany"
+                        data-search="Technical University Munich TUM Germany computer science artificial intelligence engineering"
+                    >
+
+                        <div class="card-top">
+
+                            <div class="flag">🇩🇪</div>
+
+                            <span class="country-tag">
+                                GERMANY
+                            </span>
+
+                        </div>
+
+                        <h2>
+                            Technical University of Munich
+                        </h2>
+
+                        <p class="location">
+                            Munich, Germany
+                        </p>
+
+                        <p class="description">
+                            A leading European technical university with
+                            strong programs in engineering, technology,
+                            Computer Science and innovation.
+                        </p>
+
+                        <div class="info">
+
+                            <div class="info-row">
+                                <span>Focus</span>
+                                <span>Engineering & Technology</span>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Level</span>
+                                <span>Undergraduate+</span>
+                            </div>
+
+                        </div>
+
+                        <a
+                            href="https://www.tum.de/en/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="visit-btn"
+                        >
+                            Visit Official Website →
+                        </a>
+
+                    </article>
+
+                </div>
+
+
+                <div class="no-results" id="noResults">
+
+                    <h2>No universities found</h2>
+
+                    <p>
+                        Try another university name, country or keyword.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                © 2026 StudentSphere.
+                Built for ambitious students.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const cards =
+            document.querySelectorAll(".university-card");
+
+        const filters =
+            document.querySelectorAll(".filter");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        let activeCountry = "all";
+
+
+        function filterUniversities() {
+
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+
+                const country =
+                    card.dataset.country;
+
+                const searchableText =
+                    (
+                        card.dataset.search +
+                        " " +
+                        card.textContent
+                    ).toLowerCase();
+
+
+                const countryMatch =
+                    activeCountry === "all" ||
+                    country === activeCountry;
+
+
+                const searchMatch =
+                    search === "" ||
+                    searchableText.includes(search);
+
+
+                if (
+                    countryMatch &&
+                    searchMatch
+                ) {
+
+                    card.style.display = "block";
+
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            if (visibleCount === 0) {
+
+                noResults.style.display = "block";
+
+            } else {
+
+                noResults.style.display = "none";
+
+            }
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterUniversities
+        );
+
+
+        filters.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    filters.forEach(btn => {
+                        btn.classList.remove("active");
+                    });
+
+                    this.classList.add("active");
+
+                    activeCountry =
+                        this.dataset.country;
+
+                    filterUniversities();
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
